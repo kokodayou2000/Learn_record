@@ -10,17 +10,18 @@
 
 * 使用#ifdef、#endif将功能模块包裹进去，可以向特定用户提供功能。在不需要的时候用户可以将其屏蔽掉
 
-\#ifdef MATH
-
-\#include "math.c"
-
-\#endif
+```c
+#ifdef MATH
+#include "math.c"
+#endif
+```
 
 * debug和trace
 
-\#ifdef DEBUGprintf("debug...");
-
-\#endif
+```c
+#ifdef DEBUGprintf("debug...");
+#endif
+```
 
 **3.结构体之间能直接赋值吗？**
 
@@ -36,7 +37,18 @@
 
 **5.c的static 和 c++的static的区别**
 
-C的static只能修饰局部变量和外部静态变量，但是C++可以定义类的成员变量和函数。class A{public:int a\_;A(int a): a\_(a){}void func() const{cout<< "const function" <\<end\}}
+C的static只能修饰局部变量和外部静态变量，但是C++可以定义类的成员变量和函数。
+
+```cpp
+class A{
+public:
+    int a_;
+    A(int a): a_(a){}
+    void func() const{
+        cout<< "const function" <<end
+    }
+}
+```
 
 **6. C的 malloc 和C++中new的区别**
 
@@ -48,7 +60,9 @@ C的static只能修饰局部变量和外部静态变量，但是C++可以定义�
 
 **7.宏示例**
 
-\#define MAX(a,b) ((a)>=(b)?(a):(b))
+```c
+#define MAX(a,b) ((a)>=(b)?(a):(b))
+```
 
 **8.volatile的作用**
 
@@ -69,7 +83,43 @@ C的static只能修饰局部变量和外部静态变量，但是C++可以定义�
 
 **10.结构体内存对齐**
 
-`#pragma pack(1)#pragma unpack()`#include \<stdio.h>#pragma pack(1) // 按照一字节对齐struct S1{int i;char j;} s1;#pragma unpack()​#pragma pack(2) // 按照二字节对齐struct S2{int i;char j;} s2;​#pragma unpack()struct S3{int i;char j;} s3;​int main(){printf("%ld\n", sizeof(s1));printf("%ld\n", sizeof(s2));printf("%ld\n", sizeof(s3));​return 0;}第 一 个 成 员 的 地 址 和 整 个 结 构 的 地 址 相 同 ， 向 结 构 体 成 员 中 s i z e 最 大 的 成 员 对 齐 。实际上默认的会要求按照4或者8的倍数。
+`#pragma pack(1)#pragma unpack()`
+
+```c
+#include <stdio.h>
+#pragma pack(1) // 按照一字节对齐
+struct S1
+{
+    int i;
+    char j;
+} s1;
+#pragma unpack()
+
+#pragma pack(2) // 按照二字节对齐
+struct S2
+{
+    int i;
+    char j;
+} s2;
+
+#pragma unpack()
+struct S3
+{
+    int i;
+    char j;
+} s3;
+
+int main()
+{
+    printf("%ld\n", sizeof(s1));
+    printf("%ld\n", sizeof(s2));
+    printf("%ld\n", sizeof(s3));
+
+    return 0;
+}
+```
+
+第 一 个 成 员 的 地 址 和 整 个 结 构 的 地 址 相 同 ， 向 结 构 体 成 员 中 s i z e 最 大 的 成 员 对 齐 。实际上默认的会要求按照4或者8的倍数。
 
 **11.全局变量是如何实现的？操作系统和编译器是怎么知道的？**
 
@@ -96,11 +146,77 @@ C的static只能修饰局部变量和外部静态变量，但是C++可以定义�
 
 **14.简述strcpy、sprintf与memcpy的区别**
 
-​char \*strcpy (char \*dest, const char \*src);实现两个字符串之间的拷贝void \*memcpy (void \*dest, const void \*src,size\_t \_\_n);memcpy的操作对象是两个可以操作的内存，不限制数据类型int sprintf (char \*src,const char \*format, ...);格式化输出，src必须为字符，但是转换的可以是任意类型#include \<stdio.h>#include \<string.h>​int main(){char src\[40];char dest\[100];​// 全部填充'\0'memset(dest, '\0', sizeof(dest));​strcpy(src, "This is runoob.com");strcpy(dest, src);​printf("strcpy = %s\n", dest);​char msrc\[20] = "Hello memcpy";char mdest\[20];​memcpy(mdest, msrc, sizeof(msrc));printf("mcpy = %s\n", mdest);​// 格式化输出char pstr\[40];sprintf(pstr, "Pi's value = %.4f", 3.1415);puts(pstr);​return (0);}//output/\*\*strcpy = This is runoob.commcpy = Hello memcpyPi's value = 3.1415\*/
+```c
+char *strcpy (char *dest, const char *src);
+```
+
+实现两个字符串之间的拷贝
+
+```c
+void *memcpy (void *dest, const void *src,size_t __n);
+```
+
+memcpy的操作对象是两个可以操作的内存，不限制数据类型
+
+```c
+int sprintf (char *src,const char *format, ...);
+```
+
+格式化输出，src必须为字符，但是转换的可以是任意类型
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main()
+{
+    char src[40];
+    char dest[100];
+
+    //  全部填充'\0'
+    memset(dest, '\0', sizeof(dest));
+
+    strcpy(src, "This is runoob.com");
+    strcpy(dest, src);
+
+    printf("strcpy = %s\n", dest);
+
+    char msrc[20] = "Hello memcpy";
+    char mdest[20];
+
+    memcpy(mdest, msrc, sizeof(msrc));
+    printf("mcpy = %s\n", mdest);
+
+    // 格式化输出
+    char pstr[40];
+    sprintf(pstr, "Pi's value  = %.4f", 3.1415);
+    puts(pstr);
+
+    return (0);
+}
+//output 
+/** 
+strcpy = This is runoob.com
+mcpy = Hello memcpy
+Pi's value  = 3.1415
+*/
+```
 
 **15.((void \*)0)是什么？**
 
-\#include \<stdio.h>// function pointerint (\*func)(int, int);// function argumentint pCal(int (\*func)(int, int), int a, int b);//https://blog.csdn.net/songzhuo1991/article/details/105385866//https://www.cnblogs.com/litifeng/p/7635220.html#define NULL ((void \*)0)int main(){}
+```c
+#include <stdio.h>
+// function pointer
+int (*func)(int, int);
+// function argument
+int pCal(int (*func)(int, int), int a, int b);
+//https://blog.csdn.net/songzhuo1991/article/details/105385866
+//https://www.cnblogs.com/litifeng/p/7635220.html
+#define NULL ((void *)0)
+int main()
+{
+}
+```
 
 **16.typedef 和 define的区别是什么？**
 
@@ -112,15 +228,124 @@ C的static只能修饰局部变量和外部静态变量，但是C++可以定义�
 
 **17.指针常量和常量指针的区别**
 
-指针常量强调指向一个只读对象，你不能通过指针常量来对对象修改常量指针强调指针的不可变性​//函数参数,我希望是引用传递，但不允许参数在函数内部被修改int sub(int \*const a){return \*a;}​int \*const p = \&c;​指针常量是值定义一个指针，这个指针只能在定义的时候初始化，其他时刻无法改变。//我希望是引用传递，但不允许参数在函数内部被修改int add(const int \*a, const int \*b){return \*a + \*b;}常量指针是定义一个指针，指向一个只读区域，不能通过常量指针来对该区域进行修改。​​![](https://3731255506-files.gitbook.io/\~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjqIJmJsRjNM2N5049rqA%2Fuploads%2FGbv4h1z2IcTIdoMMjDYq%2Fimage.png?alt=media\&token=2d761b5b-5343-477b-9d11-55fed9542771)​这两种最大的用处还是在函数的形参上，保证实参在调用的时候，实参的不可变性。还有一种，指向常量的指针常量const int \*const b = \&c;
+指针常量强调指向一个只读对象，你不能通过指针常量来对对象修改
+
+常量指针强调指针的不可变性​
+
+```c
+//函数参数,我希望是引用传递，但不允许参数在函数内部被修改
+int sub(int *const a)
+{
+    return *a;
+}
+
+int *const p = &c;
+
+```
+
+指针常量是值定义一个指针，这个指针只能在定义的时候初始化，其他时刻无法改变。
+
+```c
+//我希望是引用传递，但不允许参数在函数内部被修改
+int add(const int *a, const int *b)
+{
+    return *a + *b;
+}
+```
+
+常量指针是定义一个指针，指向一个只读区域，不能通过常量指针来对该区域进行修改。​​​
+
+<figure><img src="https://3731255506-files.gitbook.io/~/files/v0/b/gitbook-x-prod.appspot.com/o/spaces%2FjqIJmJsRjNM2N5049rqA%2Fuploads%2FGbv4h1z2IcTIdoMMjDYq%2Fimage.png?alt=media&#x26;token=2d761b5b-5343-477b-9d11-55fed9542771" alt=""><figcaption></figcaption></figure>
+
+这两种最大的用处还是在函数的形参上，保证实参在调用的时候，实参的不可变性。还有一种，指向常量的指针常量
+
+```c
+const int *const b = &c;
+```
+
+
 
 **18.设置修改指定地址上的值**
 
-\#include \<stdio.h>​int main(){int \*ptr;ptr = (int \*)0x7777;\*ptr = 0x6666;printf("%d\n", \*ptr);}但是会段错误
+```c
+#include <stdio.h>
+
+int main()
+{
+    int *ptr;
+    ptr = (int *)0x7777;
+    *ptr = 0x6666;
+    printf("%d\n", *ptr);
+}
+```
+
+但是会段错误
 
 **19.实现atoi()的功能**
 
-\#include \<stdio.h>#include \<math.h>​int myAtoi(char \*str){int num = 0;int isNegative = 0;int n = 0;char \*p = str;if (p == NULL){return -1;}​// 字符串长度while (\*p++ != '\0'){n++;}// 重新赋值p = str;// 是否是负数if (p\[0] == '-'){isNegative = 1;}char temp = '0';​for (int i = 0; i < n; i++){char temp = \*p++;if (temp > '9' || temp < '0'){continue;}if (num != 0 || temp != '\0'){temp -= 0x30;double t = pow(10, n - 1 - i);num += temp \* (int)t;\}}​if (isNegative){return (\~num + 1);}else{return num;\}}​int main(){char a\[] = "123";int res = myAtoi(a);printf("%d\n", res);​return 0;}
+```c
+#include <stdio.h>
+#include <math.h>
+
+int myAtoi(char *str)
+{
+    int num = 0;
+    int isNegative = 0;
+    int n = 0;
+    char *p = str;
+    if (p == NULL)
+    {
+        return -1;
+    }
+
+    // 字符串长度
+    while (*p++ != '\0')
+    {
+        n++;
+    }
+    // 重新赋值
+    p = str;
+    // 是否是负数
+    if (p[0] == '-')
+    {
+        isNegative = 1;
+    }
+    char temp = '0';
+
+    for (int i = 0; i < n; i++)
+    {
+        char temp = *p++;
+        if (temp > '9' || temp < '0')
+        {
+            continue;
+        }
+        if (num != 0 || temp != '\0')
+        {
+            temp -= 0x30;
+            double t = pow(10, n - 1 - i);
+            num += temp * (int)t;
+        }
+    }
+
+    if (isNegative)
+    {
+        return (~num + 1);
+    }
+    else
+    {
+        return num;
+    }
+}
+
+int main()
+{
+    char a[] = "123";
+    int res = myAtoi(a);
+    printf("%d\n", res);
+
+    return 0;
+}
+```
 
 **20.C语言的结构体和C++的区别**
 
@@ -221,3 +446,8 @@ delete或者free 之后应将指针设置为NULL指针越界，在指针作用�
 * `auto_ptr`
 
 智能指针的作用是管理一个指针，智能指针能很好的避免申请空间在函数结束时忘了释放，造成内存泄漏。智能指针本身就是一个类，有当超过了类的作用域，类就会调用析构函数，析构函数就能释放资源。智能指针的作用原理就是函数结束时自动释放内存空间，不需要手动释放内存空间。`auto_ptr已经在C11废弃`​​​​​​​​​​​​​​​
+
+
+
+
+

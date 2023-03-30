@@ -17,6 +17,8 @@
 ## 2. 编程语言
 
 * [☕ 2.1 Java](2.-bian-cheng-yu-yan/2.1-java/README.md)
+  * [项目](2.-bian-cheng-yu-yan/2.1-java/xiang-mu.md)
+  * [微信小程序](2.-bian-cheng-yu-yan/2.1-java/wei-xin-xiao-cheng-xu.md)
   * [轮子](2.-bian-cheng-yu-yan/2.1-java/lun-zi.md)
 * [🎅 2.2 C](2.-bian-cheng-yu-yan/2.2-c/README.md)
   * [简单示例](2.-bian-cheng-yu-yan/2.2-c/jian-dan-shi-li/README.md)

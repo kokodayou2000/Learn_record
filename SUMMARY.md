@@ -12,6 +12,8 @@
   * [常用命令](1.-bian-cheng-gong-ju/1.1-git/chang-yong-ming-ling.md)
   * [常用命令清单](1.-bian-cheng-gong-ju/1.1-git/chang-yong-ming-ling-qing-dan.md)
 * [🔗 1.2 Linux](1.-bian-cheng-gong-ju/1.2-linux/README.md)
+  * [文件系统](1.-bian-cheng-gong-ju/1.2-linux/wen-jian-xi-tong/README.md)
+    * [文件操作](1.-bian-cheng-gong-ju/1.2-linux/wen-jian-xi-tong/wen-jian-cao-zuo.md)
   * [简单命令](1.-bian-cheng-gong-ju/1.2-linux/jian-dan-ming-ling.md)
 
 ## 2. 编程语言

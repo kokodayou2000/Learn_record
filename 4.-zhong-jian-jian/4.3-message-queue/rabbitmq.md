@@ -1,2 +1,2 @@
-# RabbitMQ
+# 🐰 RabbitMQ
 
